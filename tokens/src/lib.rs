@@ -1917,6 +1917,11 @@ impl<T: Config> fungibles::Unbalanced<T::AccountId> for Pallet<T> {
 	}
 }
 
+impl<T: Config> fungibles::Balanced<T::AccountId> for Pallet<T> {
+	type OnDropDebt = fungibles::IncreaseIssuance<T::AccountId, Pallet<T>>;
+	type OnDropCredit = fungibles::DecreaseIssuance<T::AccountId, Pallet<T>>;
+}
+
 type ReasonOf<P, T> = <P as fungibles::InspectHold<<T as frame_system::Config>::AccountId>>::Reason;
 impl<T: Config> fungibles::InspectHold<T::AccountId> for Pallet<T> {
 	type Reason = ();
